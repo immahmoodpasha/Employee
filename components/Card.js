@@ -1,0 +1,52 @@
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react'
+
+const Card = () => {
+  return (
+    <View >
+      <View style={styles.cardContainer}>
+        <Text style={styles.textStyle}>Order ID : 101</Text>
+        <Text style={styles.textStyle}>No of Items:3</Text>
+        <Text style={styles.textStyle}>Time:10:30 AM</Text>
+        <TouchableOpacity
+          style={styles.button}
+        >
+          <Text style={{ textAlign: "center",fontWeight:500,color:"white" }}>Accept</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+const styles = StyleSheet.create({
+  cardContainer: {
+  backgroundColor: '#ebd0f0ff',
+  padding: "2%",
+  margin: "2%",
+  borderRadius: 12,
+  borderBottomWidth:7,
+  borderColor: '#15060fff',
+  shadowColor: '#a41ac3ff',
+  shadowOffset: { width: 2, height: 2 },
+  shadowOpacity: 0.8,
+  shadowRadius: 4,
+  elevation: 8,
+},
+  textStyle: {
+    fontSize: 15,
+    fontWeight: 500,
+    color:'#1d1c1eff',
+    fontFamily:" Roboto"
+  },
+  button: {
+    backgroundColor: '#a41ac3ff',
+    padding:5,
+    width:"50%",
+    alignSelf:"center",
+    borderRadius:12,
+    marginTop:10,
+  }
+
+});
+
+
+export default Card
