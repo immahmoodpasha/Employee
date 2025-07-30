@@ -1,15 +1,41 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import Header from '../components/Header'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import Header from '../components/Header';
+import Card from '../components/Card';
+import axios from 'axios';
+
 
 const Dashboard = () => {
+  const [orders,setOrders]=useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const fetchData=async()=>{
+    try{
+      const res=await axios.get('http://192.168.0.129:3113/orders');
+      setOrders(res.data);
+    }
+    catch(error){
+      alert(error);
+    }
+  }
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
+  useEffect(()=>
+  {
+    fetchData();
+  },[])
   return (
     <View style={styles.cardContainer}>
-      <Text>Order ID : 101</Text>
-      <Text>Customer:John</Text>
-      <Text>Items:3</Text>
-      <Text>Time:10:30 AM</Text>
-      
+      <Header/>
+      <FlatList
+       data={orders}
+       keyExtractor={(item) => item.orderId.toString()}
+       renderItem={({ item }) => <Card order={item} />}
+       refreshing={refreshing}
+       onRefresh={handleRefresh}
+      />
     </View>
   )
 }
@@ -22,4 +48,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Dashboard
+export default Dashboard;

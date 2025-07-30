@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const Card = () => {
+const Card = ({order}) => {
   return (
     <View >
       <View style={styles.cardContainer}>
-        <Text style={styles.textStyle}>Order ID : 101</Text>
-        <Text style={styles.textStyle}>No of Items:3</Text>
-        <Text style={styles.textStyle}>Time:10:30 AM</Text>
+        <Text style={styles.textStyle}>Order ID: {order.orderId}</Text>
+        <Text style={styles.textStyle}>No of Items: {order.products.length}</Text>
+        <Text style={styles.textStyle}>Time: {order.time}</Text>
         <TouchableOpacity
           style={styles.button}
         >
@@ -19,13 +19,13 @@ const Card = () => {
 }
 const styles = StyleSheet.create({
   cardContainer: {
-  backgroundColor: '#ebd0f0ff',
+  backgroundColor: '#c29efbff',
   padding: "2%",
   margin: "2%",
   borderRadius: 12,
-  borderBottomWidth:7,
+  borderBottomWidth:3,
   borderColor: '#15060fff',
-  shadowColor: '#a41ac3ff',
+  shadowColor: '#ece4edff',
   shadowOffset: { width: 2, height: 2 },
   shadowOpacity: 0.8,
   shadowRadius: 4,
