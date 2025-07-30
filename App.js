@@ -1,16 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Signin from './screens/Signin';
-import Dashboard from './screens/Dashboard';
-import Header from './components/Header';
-import Card from './components/Card';
+import StackNavigator from './navigators/StackNavigator';
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Header/>
-      <Card/>
-      <StatusBar style="inverted" />
+      <NavigationContainer>
+        <StackNavigator />
+        <StatusBar style="auto" />
+      </NavigationContainer>
     </View>
   );
 }
