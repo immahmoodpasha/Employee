@@ -1,7 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { orderStatusContext } from '../context/orderStatusContext';
+import React, { useContext } from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const Card = ({order}) => {
+  const {occupied, toggleOccupied} = useContext(orderStatusContext)
+  const navigation = useNavigation();
+  const AcceptOrder = (order) => {
+    toggleOccupied();
+    navigation.navigate('CurrentTask', {order});
+  };
   return (
     <View >
       <View style={styles.cardContainer}>
@@ -10,6 +18,7 @@ const Card = ({order}) => {
         <Text style={styles.textStyle}>Time: {order.time}</Text>
         <TouchableOpacity
           style={styles.button}
+          onPress={()=>AcceptOrder(order)}
         >
           <Text style={{ textAlign: "center",fontWeight:500,color:"white" }}>Accept</Text>
         </TouchableOpacity>

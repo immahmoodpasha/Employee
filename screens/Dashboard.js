@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const fetchData=async()=>{
     try{
-      const res=await axios.get('http://192.168.0.129:3113/orders');
+      const res=await axios.get('http://192.168.43.182:3113/orders');
       setOrders(res.data);
     }
     catch(error){
