@@ -13,32 +13,37 @@ const Card = ({order}) => {
   return (
     <View >
       <View style={styles.cardContainer}>
-        <Text style={styles.textStyle}>Order ID: {order.orderId}</Text>
+        <View>
+        <Text style={styles.orderId}>Order ID: {order.orderId}</Text>
         <Text style={styles.textStyle}>No of Items: {order.products.length}</Text>
         <Text style={styles.textStyle}>Time: {order.time}</Text>
+        </View>
+        <View style={{width:"50%",alignSelf:"center",flexDirection:"row",justifyContent:"flex-end"}}>
         <TouchableOpacity
           style={styles.button}
           onPress={()=>AcceptOrder(order)}
         >
           <Text style={{ textAlign: "center",fontWeight:500,color:"white" }}>Accept</Text>
         </TouchableOpacity>
+        </View>
       </View>
     </View>
   )
 }
 const styles = StyleSheet.create({
   cardContainer: {
-  backgroundColor: '#c29efbff',
-  padding: "2%",
+  backgroundColor: '#fdfcfeff',
+  padding: "4%",
   margin: "2%",
-  borderRadius: 12,
-  borderBottomWidth:3,
-  borderColor: '#15060fff',
-  shadowColor: '#ece4edff',
+  borderRadius: 10,
+  borderColor: '#49034aff',
+  shadowColor: '#a00fb4ff',
   shadowOffset: { width: 2, height: 2 },
   shadowOpacity: 0.8,
   shadowRadius: 4,
   elevation: 8,
+  flexDirection:"row",
+  justifyContent:"space-between"
 },
   textStyle: {
     fontSize: 15,
@@ -52,7 +57,10 @@ const styles = StyleSheet.create({
     width:"50%",
     alignSelf:"center",
     borderRadius:12,
-    marginTop:10,
+  },
+  orderId:{
+    fontSize:18,
+    fontWeight:800
   }
 
 });

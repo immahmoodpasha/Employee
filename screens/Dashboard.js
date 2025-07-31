@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const fetchData=async()=>{
     try{
-      const res=await axios.get('http://192.168.43.182:3113/orders');
+      const res=await axios.get('http://10.68.128.58:3113/orders');
       setOrders(res.data);
     }
     catch(error){
@@ -42,7 +42,6 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
-    backgroundColor: '#fff',
   },
 
 });
