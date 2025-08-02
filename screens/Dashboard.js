@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const fetchData=async()=>{
     try{
-      const res=await axios.get('http://10.68.128.58:3113/orders');
+      const res=await axios.get('http://192.168.243.36:3113/orders');
       setOrders(res.data);
     }
     catch(error){
@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(()=>
   {
     fetchData();
-  },[])
+  },[orders])
   return (
     <View style={styles.cardContainer}>
       <Header/>

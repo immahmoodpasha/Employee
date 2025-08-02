@@ -1,44 +1,57 @@
 {
   "orders": [
     {
+      "id": "1",
       "orderId": 101,
-      "products": [{
-          "name":"Apple",
+      "products": [
+        {
+          "name": "Apple",
           "quantity": 3
-        }, {
-          "name":"Milk",
+        },
+        {
+          "name": "Milk",
           "quantity": 2
-        }, {
-          "name":"Bread",
+        },
+        {
+          "name": "Bread",
           "quantity": 4
-        }],
+        }
+      ],
       "time": "10:30 AM"
     },
     {
+      "id": "2",
       "orderId": 102,
-      "products": ["Banana", "Juice", "Eggs"],
+      "products": [
+        {
+          "name": "Banana",
+          "quantity": 6
+        },
+        {
+          "name": "Juice",
+          "quantity": 2
+        },
+        {
+          "name": "Eggs",
+          "quantity": 12
+        }
+      ],
       "time": "10:45 AM"
     },
     {
+      "id": "3",
       "orderId": 103,
-      "products": ["Rice", "Chicken"],
-      "time": "11:00 AM"
-    },
-    {
-      "orderId": 104,
-      "products": ["Rice", "Chicken"],
-      "time": "11:00 AM"
-    },
-    {
-      "orderId": 105,
-      "products": ["Rice", "Chicken"],
-      "time": "11:00 AM"
-    },
-    {
-      "orderId": 106,
-      "products": ["Rice", "Chicken"],
+      "products": [
+        {
+          "name": "Rice",
+          "quantity": 1
+        },
+        {
+          "name": "Chicken",
+          "quantity": 1
+        }
+      ],
       "time": "11:00 AM"
     }
-    
   ]
 }

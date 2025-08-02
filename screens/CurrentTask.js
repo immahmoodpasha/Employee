@@ -1,56 +1,136 @@
-import { useEffect, useState,useContext } from "react";
-import { View,Text, StyleSheet,TouchableOpacity } from "react-native";
-import { FlatList } from "react-native";
-import { Switch } from "react-native";
-import { orderStatusContext } from '../context/orderStatusContext';
+import { useEffect, useState, useContext } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { orderStatusContext } from "../context/orderStatusContext";
 import { useNavigation } from "@react-navigation/native";
-
+import axios from "axios";
 import CheckBox from "../components/CheckBox";
-const CurrentTask = ({route}) => {
-    const [switchValue, setSwitchValue] = useState(false);
-    const {order} = route.params;
-    const {occupied, toggleOccupied} = useContext(orderStatusContext)
-    const navigation = useNavigation();
+import { Alert } from "react-native";
 
+
+const CurrentTask = ({ route }) => {
+  const { order } = route.params;
+  const { toggleOccupied } = useContext(orderStatusContext);
+  const navigation = useNavigation();
+
+  
     const CompletedOrder = () => {
-        toggleOccupied();
-        navigation.goBack();
-    }
-
-    return(
-        <View style={styles.CurrentTask}>
-            <Text style={{color: '#8404ae', fontWeight: 900, fontSize: 20, alignSelf: 'center'}}>Your Task</Text>
-
-            <View style={styles.OrderContainer}>
-                <Text style={{fontSize: 24, alignSelf: 'center', fontWeight: 600}}>Order ID: {order.orderId}</Text>
-                <FlatList data={order.products} keyExtractor={(item, index) => index.toString()} renderItem={({item})=>(
-                    <View style={{display:'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',paddingVertical: '5%'}}>
-                        <Text style={{fontSize: 20}}>{item.name} - {item.quantity}</Text>
-                        <Text style={{fontSize: 20}}></Text>
-                        <CheckBox />
-                    </View>
-                )}/>
-                <TouchableOpacity onPress={()=>CompletedOrder()} style={{alignSelf: 'center', backgroundColor: '#8404ae', paddingVertical: '3%', paddingHorizontal: '5%', borderRadius: 20}}>
-                    <Text style={{fontSize: 20, color: 'white', fontWeight: 800}}>Mark Completed</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+    Alert.alert(
+        "Are you sure?",
+        "Do you want to mark this order as completed and remove it?",
+        [
+        {
+            text: "Cancel",
+            style: "cancel"
+        },
+        {
+            text: "Yes",
+            onPress: async () => {
+            try {
+                console.log("Deleting order:", order);
+                await axios.delete(`http://192.168.243.36:3113/orders/${order.id}`);
+                toggleOccupied(); 
+                navigation.goBack();
+            } catch (error) {
+                console.error("Error deleting order:", error);
+            }
+            }
+        }
+        ]
     );
-}
+    };
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>📝 Your Task</Text>
+
+      <View style={styles.orderInfo}>
+        <Text style={styles.orderId}>Order ID: {order.orderId}</Text>
+        <FlatList
+          data={order.products}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.productCard}>
+              <View>
+                <Text style={styles.productName}>{item.name}</Text>
+                <Text style={styles.productQty}>Qty: {item.quantity}</Text>
+              </View>
+              <CheckBox />
+            </View>
+          )}
+        />
+
+        <TouchableOpacity onPress={CompletedOrder} style={styles.completeButton}>
+          <Text style={styles.buttonText} onPress={CompletedOrder}>Mark Completed</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
 export default CurrentTask;
 
 const styles = StyleSheet.create({
-    CurrentTask: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: '10%'
-    },
-    OrderContainer: {
-        marginTop: '20%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10%'
-    }
-})
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    backgroundColor: "#f9f5ff",
+  },
+  title: {
+    color: "#8404ae",
+    fontWeight: "bold",
+    fontSize: 26,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  orderInfo: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 20,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  orderId: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  productCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#f2ebff",
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 12,
+  },
+  productName: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#5a189a",
+  },
+  productQty: {
+    fontSize: 16,
+    color: "#6c6c6c",
+    marginTop: 4,
+  },
+  completeButton: {
+    backgroundColor: "#8404ae",
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+  },
+});

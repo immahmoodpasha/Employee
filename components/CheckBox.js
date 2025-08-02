@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, View } from "react-native";
 import { Switch } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
