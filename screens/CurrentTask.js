@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import CheckBox from "../components/CheckBox";
 import { Alert } from "react-native";
+import apiClient from "../apiClient";
 
 
 const CurrentTask = ({ route }) => {
@@ -24,17 +25,16 @@ const CurrentTask = ({ route }) => {
         },
         {
             text: "Yes",
-            onPress: async () => {
+            onPress:async()=>{
             try {
-                console.log("Deleting order:", order);
-                await axios.delete(`http://192.168.243.36:3113/orders/${order.id}`);
-                toggleOccupied(); 
+                
+                await apiClient.put(`/api/taskhistory`,{orderId: order.orderId,});
+                toggleOccupied();
                 navigation.goBack();
             } catch (error) {
                 console.error("Error deleting order:", error);
             }
-            }
-        }
+            }}
         ]
     );
     };
@@ -43,23 +43,21 @@ const CurrentTask = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>📝 Your Task</Text>
-
       <View style={styles.orderInfo}>
         <Text style={styles.orderId}>Order ID: {order.orderId}</Text>
         <FlatList
-          data={order.products}
+          data={order.items}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.productCard}>
-              <View>
-                <Text style={styles.productName}>{item.name}</Text>
+              <View style={{width:"80%"}}>
+                <Text style={styles.productName}>{item.productName}</Text>
                 <Text style={styles.productQty}>Qty: {item.quantity}</Text>
               </View>
               <CheckBox />
             </View>
           )}
         />
-
         <TouchableOpacity onPress={CompletedOrder} style={styles.completeButton}>
           <Text style={styles.buttonText} onPress={CompletedOrder}>Mark Completed</Text>
         </TouchableOpacity>

@@ -1,25 +1,6 @@
 {
   "orders": [
     {
-      "id": "1",
-      "orderId": 101,
-      "products": [
-        {
-          "name": "Apple",
-          "quantity": 3
-        },
-        {
-          "name": "Milk",
-          "quantity": 2
-        },
-        {
-          "name": "Bread",
-          "quantity": 4
-        }
-      ],
-      "time": "10:30 AM"
-    },
-    {
       "id": "2",
       "orderId": 102,
       "products": [

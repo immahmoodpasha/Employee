@@ -5,7 +5,7 @@ const AuthInput = ({name,label, placeholder, secureTextEntry = false, keyboardTy
     <>
       <Text style={styles.label}>{label}</Text>
       <TextInput
-        name={name}
+        // name={name}
         style={styles.input}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}

@@ -11,7 +11,7 @@ const StackNavigator = () => {
     const {occupied} = useContext(orderStatusContext)
 
     return(
-        <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false, gestureEnabled: !occupied }}>
+        <Stack.Navigator initialRouteName="Signin" screenOptions={{ headerShown: false, gestureEnabled: !occupied }}>
             <Stack.Screen name="Signin" component={Signin}/>
             <Stack.Screen name="CurrentTask" component={CurrentTask} options={{ headerLeft: ()=>null, gestureEnabled: !occupied }}/>
             <Stack.Screen name="Dashboard" component={Dashboard}/>

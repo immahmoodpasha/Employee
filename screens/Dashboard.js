@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header';
 import Card from '../components/Card';
 import axios from 'axios';
+import apiClient from '../apiClient'
 
 
 const Dashboard = () => {
@@ -10,8 +11,10 @@ const Dashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const fetchData=async()=>{
     try{
-      const res=await axios.get('http://192.168.243.36:3113/orders');
+      const res = await apiClient.get('/api/Order/billed-orders');      
       setOrders(res.data);
+      console.log(orders)
+      
     }
     catch(error){
       alert(error);
@@ -22,10 +25,10 @@ const Dashboard = () => {
     await fetchData();
     setRefreshing(false);
   };
-  useEffect(()=>
-  {
+  useEffect(()=> {
     fetchData();
-  },[orders])
+  },[])
+
   return (
     <View style={styles.cardContainer}>
       <Header/>
