@@ -27,18 +27,18 @@ const Card = ({ order }) => {
     <View>
       <View style={styles.cardContainer}>
         <View>
-          <Text style={styles.orderId}>Order ID: {order._id}</Text>
+          <Text style={styles.orderId}>Order ID: #{(order.orderId).slice(0,7)}</Text>
           <Text style={styles.textStyle}>No of Items: {order.items.length}</Text>
           <Text style={styles.textStyle}>
             Placed At: {new Date(order.createdAt).toLocaleString()}
           </Text>
         </View>
-        <View style={{ width: "50%", alignSelf: "center", flexDirection: "row" }}>
+        <View style={{ width: "50%", alignSelf: "center", flexDirection: "row",marginLeft:30 }}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => AcceptOrder(order)}
           >
-            <Text style={{ textAlign: "center", fontWeight: 500, color: "white" }}>
+            <Text style={{ textAlign: "center", fontWeight: 500, color: "white", }}>
               Accept
             </Text>
           </TouchableOpacity>

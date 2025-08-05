@@ -1,72 +1,83 @@
 import { useEffect, useState, useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert } from "react-native";
 import { orderStatusContext } from "../context/orderStatusContext";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import CheckBox from "../components/CheckBox";
-import { Alert } from "react-native";
 import apiClient from "../apiClient";
-
 
 const CurrentTask = ({ route }) => {
   const { order } = route.params;
   const { toggleOccupied } = useContext(orderStatusContext);
   const navigation = useNavigation();
+  const [checkedItems, setCheckedItems] = useState([]);
 
-  
-    const CompletedOrder = () => {
+  useEffect(() => {
+    setCheckedItems(new Array(order.items.length).fill(false));
+  }, [order]);
+
+  const handleCheck = (index) => {
+    const updatedChecks = [...checkedItems];
+    updatedChecks[index] = !updatedChecks[index];
+    setCheckedItems(updatedChecks);
+  };
+
+  const allChecked = checkedItems.every(Boolean); // true if all items are checked
+
+  const CompletedOrder = () => {
     Alert.alert(
-        "Are you sure?",
-        "Do you want to mark this order as completed and remove it?",
-        [
+      "Are you sure?",
+      "Do you want to mark this order as completed and remove it?",
+      [
+        { text: "Cancel", style: "cancel" },
         {
-            text: "Cancel",
-            style: "cancel"
-        },
-        {
-            text: "Yes",
-            onPress:async()=>{
+          text: "Yes",
+          onPress: async () => {
             try {
-                
-                await apiClient.put(`/api/taskhistory`,{orderId: order.orderId,});
-                toggleOccupied();
-                navigation.goBack();
+              await apiClient.put(`/api/taskhistory`, { orderId: order.orderId });
+              toggleOccupied();
+              navigation.goBack();
             } catch (error) {
-                console.error("Error deleting order:", error);
+              console.error("Error deleting order:", error);
             }
-            }}
-        ]
+          },
+        },
+      ]
     );
-    };
-
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>📝 Your Task</Text>
       <View style={styles.orderInfo}>
-        <Text style={styles.orderId}>Order ID: {order.orderId}</Text>
+        <Text style={styles.orderId}>Order ID: #{(order.orderId).slice(0,7)}</Text>
         <FlatList
           data={order.items}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <View style={styles.productCard}>
-              <View style={{width:"80%"}}>
+              <View style={{ width: "80%" }}>
                 <Text style={styles.productName}>{item.productName}</Text>
                 <Text style={styles.productQty}>Qty: {item.quantity}</Text>
               </View>
-              <CheckBox />
+              <CheckBox checked={checkedItems[index]} onToggle={() => handleCheck(index)} />
             </View>
           )}
         />
-        <TouchableOpacity onPress={CompletedOrder} style={styles.completeButton}>
-          <Text style={styles.buttonText} onPress={CompletedOrder}>Mark Completed</Text>
-        </TouchableOpacity>
+
+        {allChecked && (
+          <TouchableOpacity onPress={CompletedOrder} style={styles.completeButton}>
+            <Text style={styles.buttonText}>Mark Completed</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
 };
 
 export default CurrentTask;
+
+// ...styles remain the same
+
 
 const styles = StyleSheet.create({
   container: {

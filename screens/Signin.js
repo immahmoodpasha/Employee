@@ -19,7 +19,7 @@ const Signin = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await axios.post('https://9f1ac26b4e14.ngrok-free.app/api/auth/login',formData);
+    const res = await axios.post('https://bd1a05ac5838.ngrok-free.app/api/auth/login',formData);
 
     if (res.status === 200) {
       const token = res.data.data.jwtToken;
@@ -33,7 +33,7 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <View style={{width:"100%"}}>
+    <View style={{width:"100%",marginTop:"100"}}>
       <Icon name="box-open" size={50} color="#8404aeff" style={{ alignSelf: 'center' }} />
       <Text style={sharedStyles.heading}>Shopsy Login</Text>
 
