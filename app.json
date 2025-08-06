@@ -16,14 +16,21 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions":["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.mahmood_2003.Employee"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "140deb6f-0f80-4e7d-92fd-8bc60cfc2dcf"
+      }
     }
   }
 }
