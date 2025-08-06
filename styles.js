@@ -102,5 +102,10 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         flex: 1
+    },
+    logo: {
+    width: 40,
+    height: 40,
+    borderRadius: 5
     }
 })
