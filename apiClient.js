@@ -3,7 +3,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const apiClient = axios.create({
-  baseURL: 'https://8d6e90418753.ngrok-free.app',
+  baseURL: 'https://4519fc0a3cc7.ngrok-free.app',
 });
 
 // Add a request interceptor to attach the token
