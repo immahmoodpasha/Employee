@@ -26,7 +26,7 @@ const CurrentTask = ({ route }) => {
   const CompletedOrder = () => {
     Alert.alert(
       "Are you sure?",
-      "Do you want to mark this order as completed and remove it?",
+      "Do you want to mark this order as completed?",
       [
         { text: "Cancel", style: "cancel" },
         {

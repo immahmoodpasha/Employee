@@ -9,7 +9,7 @@ const Header = () => {
         <View style={styles.Header}>
             <View style={{display: 'flex', flexDirection: 'row', gap: '8%'}}>
                 <Icon name="shop" size={30} color="white"/>
-                <Text style={{color: 'white', fontSize: 22, fontWeight: 800}}>Shopsy store</Text>
+                <Text style={{color: 'white', fontSize: 22, fontWeight: 800}}>Rapidd</Text>
             </View>
             <TouchableOpacity>
                 <Image source={bike} style={{width: 32, height: 32}}></Image>

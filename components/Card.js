@@ -26,14 +26,14 @@ const Card = ({ order }) => {
   return (
     <View>
       <View style={styles.cardContainer}>
-        <View>
+        <View style={{ width: "60%", alignSelf: "center", }}>
           <Text style={styles.orderId}>Order ID: #{(order.orderId).slice(0,7)}</Text>
           <Text style={styles.textStyle}>No of Items: {order.items.length}</Text>
           <Text style={styles.textStyle}>
             Placed At: {new Date(order.createdAt).toLocaleString()}
           </Text>
         </View>
-        <View style={{ width: "50%", alignSelf: "center", flexDirection: "row",marginLeft:30 }}>
+        <View style={{ width: "50%", alignSelf: "center", flexDirection: "row",marginLeft:"auto" }}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => AcceptOrder(order)}
@@ -75,6 +75,8 @@ const styles = StyleSheet.create({
     width: "50%",
     alignSelf: "center",
     borderRadius: 12,
+    marginLeft:"auto",
+    marginRight:45
   },
   orderId: {
     fontSize: 18,
